@@ -1,5 +1,4 @@
-import command
-
+from .command import *
 class ScreenSession():
 
     id = None
