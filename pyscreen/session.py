@@ -16,7 +16,7 @@ class ScreenSession():
                     raise MoreSessionsWithTheSameNameException
 
             #Create the session
-            command.command('screen -d -m -S '+name)
+            command('screen -d -m -S '+name)
 
             #Look for the id
             for session in get_all_sessions():
@@ -25,11 +25,11 @@ class ScreenSession():
 
     def send_command(self,command_to_send):
 
-       command.command(['screen', '-r', self.name, '-X', 'stuff',command_to_send+' \r'])
+       command(['screen', '-r', self.name, '-X', 'stuff',command_to_send+' \r'])
 
     def kill(self):
 
-        command.command('screen -S '+self.name+' -X quit')
+        command('screen -S '+self.name+' -X quit')
 
     def __repr__(self):
 
@@ -41,7 +41,7 @@ class MoreSessionsWithTheSameNameException(Exception):
 
 def get_all_sessions():
 
-    raw_screens = command.command('screen -ls',return_output=True)
+    raw_screens = command('screen -ls',return_output=True)
     screen_sessions = []
 
     for n,line in enumerate(raw_screens):
