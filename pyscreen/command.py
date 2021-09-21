@@ -1,6 +1,7 @@
+import sys
 import subprocess
 
-def command(command,final_line=None,cwd=None, return_output = False):
+def command(command, final_line=None, cwd=None, return_output=False):
 
     if isinstance(command,str):
         command = command.split()
@@ -8,12 +9,13 @@ def command(command,final_line=None,cwd=None, return_output = False):
     if cwd == None:
         popen = subprocess.Popen(command, stdout=subprocess.PIPE)
     else:
-        popen = subprocess.Popen(command, stdout=subprocess.PIPE,cwd=cwd)
+        popen = subprocess.Popen(command, stdout=subprocess.PIPE, cwd=cwd)
 
     lines_iterator = iter(popen.stdout.readline, b"")
     output = None
 
     for line in lines_iterator:
+        line = line.decode(sys.stdout.encoding)
 
         if return_output:
             if output == None:
@@ -23,7 +25,7 @@ def command(command,final_line=None,cwd=None, return_output = False):
         else:
             print(line)
 
-        if final_line != None and final_line in str(line):
+        if final_line != None and final_line in line:
             return output
 
     return output
