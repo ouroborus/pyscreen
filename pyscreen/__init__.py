@@ -1,2 +1,2 @@
-from command import *
-from session import *
+from .command import *
+from .session import *
